@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <form id="formadd" class="form-label-left input_mask p-3 col-12">
+      <div class="row mt-4">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+              <h5 class="text-center "><b><u>ASSESMEN TERAPI WICARA</u></b></h5>
+          </div>
+      </div>
+      
+      <div class="tab-content mx-3">
+          <div class="form-group">
+              <div class="form-group row">
+                  <h7 style="font-weight: bold">A. Identitas Pasien</h7>
+              </div>
+          </div>
+          <div class="form-group pl-2">
+              <div class="form-group row">
+                  <label for="rm" class="form-label col-form-label col-md-2">No RM</label>
+                  <div class="col-md-10">
+                      <input class="form-control" type="text" id="rm" v-model="pasien.no_rm">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="pasien_name" class="form-label col-form-label col-md-2">Nama</label>
+                  <div class="col-md-10">
+                      <input class="form-control" type="text" id="pasien_name" v-model="pasien.nama">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="umur" class="form-label col-form-label col-md-2">Umur</label>
+                  <div class="col-md-4">
+                      <input class="form-control" type="text" id="umur" v-model.number="pasien.umur">
+                  </div>
+                 
+                  <label for="" class="form-label col-form-label col-md-2">Jenis Kelamin</label>
+                          <div class="col-md-4 mt-2">
+                              <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="kelamin" id="kelamin_l" value="L" v-model="pasien.kelamin">
+                                  <label class="form-check-label " for="kelamin_l">Laki-laki</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="kelamin" id="kelamin_p" value="P" v-model="pasien.kelamin">
+                                  <label class="form-check-label " for="kelamin_p">Perempuan</label>
+                              </div>
+                          </div>
+              </div>
+              <div class="form-group row">
+                  <label for="alamat" class="form-label col-form-label col-md-2">Alamat</label>
+                  <div class="col-md-10">
+                      <input class="form-control" type="text" id="alamat" v-model="pasien.alamat">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="tempat" class="form-label col-form-label col-md-2">TTL</label>
+                  <div class="col-md-2">
+                      <input class="form-control" type="text" id="tempat" v-model="pasien.tempat">
+                  </div>
+                  <div class="col-md-2">
+                      <input class="form-control" type="date" id="ttl" v-model="pasien.tanggal_lahir" @change="onChDateDynamic($event, 'pasien.tanggal_lahir_indo')">
+                  </div>
+                  <label for="tgl_a" class="form-label col-form-label col-md-2">Tanggal Assesment</label>
+                  <div class="col-md-3">
+                      <input class="form-control" type="date" id="tgl_a" v-model="pasien.tanggal_assesment" @change="onChDateDynamic($event, 'pasien.tanggal_assesment_indo')">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="form-group row">
+                  <h7 style="font-weight: bold">B. Assesment Awal</h7>
+              </div>
+              <div class="form-group pl-2">
+                  <div class="form-group row">
+                      <label for="riwayat_dahulu" class="form-label col-form-label col-md-2">Riwayat dahulu</label>
+                      <div class="col-md-10">
+                          <textarea class="form-control" rows="3" id="riwayat_dahulu" cols="40" v-model="assesmen_awal.riwayat_dahulu"></textarea>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="riwayat_sekarang" class="form-label col-form-label col-md-2">Riwayat Sekarang</label>
+                      <div class="col-md-10">
+                           <textarea class="form-control" rows="3" id='riwayat_sekarang' cols="40" v-model="assesmen_awal.riwayat_sekarang"></textarea>
+                      </div>
+                  </div>
+              </div>
+          </div>
+           <div class="form-group">
+              <div class="form-group row">
+                  <h7 style="font-weight: bold">C. Pemeriksaan</h7>
+              </div>
+              <div class="form-group pl-2">
+                  <div class="form-group row">
+                      <label for="oral" class="form-label col-form-label col-md-2">Oral Motor</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="oral" v-model="pemeriksaan.oral_motor">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="bahasa" class="form-label col-form-label col-md-2">Bahasa</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="bahasa" v-model="pemeriksaan.bahasa">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="bicara" class="form-label col-form-label col-md-2">Bicara</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="bicara" v-model="pemeriksaan.bicara">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="suara" class="form-label col-form-label col-md-2">Suara</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="suara" v-model="pemeriksaan.suara">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="irama" class="form-label col-form-label col-md-2">Irama kelancaran</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="irama" v-model="pemeriksaan.irama_kelancaran">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="feeding" class="form-label col-form-label col-md-2">Feeding</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="feeding" v-model="pemeriksaan.feeding">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="feeding" class="form-label col-form-label col-md-2">Pendengaran</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="feeding" v-model="pemeriksaan.pendengaran">
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="lain_lain" class="form-label col-form-label col-md-2">Lain-lain</label>
+                      <div class="col-md-10">
+                          <input class="form-control" type="text" id="lain_lain" v-model="pemeriksaan.lain_lain">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+               <div class="form-group row">
+                  <h7 style="font-weight: bold">D. Diagnosa Terapi Wicara</h7>
+                  
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12">
+                      <textarea class="form-control" rows="3" cols="40" v-model="isian_diagnosa"></textarea>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+               <div class="form-group row">
+                  <h7 style="font-weight: bold">E. Intervensi</h7>
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12">
+                      <textarea class="form-control" rows="3" cols="40" v-model="intervensi"></textarea>
+                  </div>
+              </div>
+          </div>
+          <!--@change="onChDateDynamic($event, 'ttd.tgl_indo')"-->
+          <div class="form-group row  ml-2 mr-2 mt-4">
+          <div class="col-md-6">
+              <div class="form-group row text-right">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-md-3">
+                      <input type="text" class="form-control-plaintext" readonly>
+                  </div>
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-md-3">
+                      <input type="text" class="form-control-plaintext" readonly>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12">
+                      <center>TTD Pasien atau keluarga</center>
+                  </div>
+              </div>
+              <br />
+              <br/>
+              <br/>
+              <div class="form-group row mt-3">
+                  <div class="col-md-12"> 
+                      <input type="text" class="form-control" v-model="pasien.nama" >
+                  </div>
+              </div>
+          </div>
+          
+          <div class="col-md-6">
+              <div class="form-group row text-right">
+                  <label class="col-sm-2 col-form-label">Wonogiri,</label>
+                  <div class="col-md-3">
+                      <input type="date" class="form-control" v-model="ttd.tanggal_ttd_perawat" @change="onChDateDynamic($event, 'ttd.tanggal_ttd_perawat_indo')">
+                  </div>
+                  <label class="col-sm-2 col-form-label">Jam</label>
+                  <div class="col-md-4">
+                      <input type="time" class="form-control" v-model="ttd.jam">
+                      <!--<label class="col-sm-2 col-form-label">WIB</label>-->
+                  </div>
+                  <label class="col-sm-1 col-form-label">WIB</label>
+              </div>
+              <div class="form-group row">
+                  <div class="col-md-12">
+                      <center>Petugas terapi wicara yang mengkaji</center>
+                  </div>
+              </div>
+              <br />
+              <br/>
+              <br/>
+              <div class="form-group row mt-3">
+                  <div class="col-md-12"> 
+                      <select type="text" style="width:100%" id="nakes_auto" class="form-control"></select>
+                  </div>
+              </div>
+             
+          </div>
+      </div>
+      </div>
+      <div class="form-group row mt-5 text-center">
+          <div class="col-md-12">
+              <button type="button" v-on:click="saveDoc" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+              <button type="button" v-on:click="checkData" class="btn btn-success prod_hidden"><i class="fa fa-check-square-o"></i> Check Data</button>
+          </div>
+      </div>
+  </form>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
